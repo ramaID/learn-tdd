@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\ProjectsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,4 +18,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::controller(ProjectsController::class)->group(function () {
+    Route::get('projects', 'index');
+    Route::post('projects', 'store');
 });
