@@ -58,6 +58,9 @@
         ],
         "analyse": [
             "vendor/bin/phpstan analyse"
+        ],
+        "test": [
+            "XDEBUG_MODE=coverage php artisan test --coverage --parallel"
         ]
     },
     "extra": {
