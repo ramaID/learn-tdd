@@ -20,8 +20,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
+
 Route::controller(ProjectsController::class)->group(function () {
     Route::get('projects', 'index');
-    Route::post('projects', 'store');
+    Route::post('projects', 'store')->middleware('auth');
     Route::get('projects/{project}', 'show');
 });

@@ -15,9 +15,15 @@ class ProjectsController extends BaseController
 
     public function store()
     {
-        $attributes = request()->validate(['title' => 'required', 'description' => 'required']);
+        $attributes = request()->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ]);
 
-        Project::create($attributes);
+        /** @var \App\Models\User */
+        $user = auth()->user();
+
+        $user->projects()->create($attributes);
 
         return redirect('projects');
     }
