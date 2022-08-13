@@ -57,4 +57,4 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
-        run: XDEBUG_MODE=coverage php artisan test --parallel
+        run: composer test
