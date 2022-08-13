@@ -30,6 +30,13 @@ class ProjectsController extends BaseController
 
     public function show(Project $project)
     {
+        /** @var \App\Models\User */
+        $user = auth()->user();
+
+        if ($user->isNot($project->owner)) {
+            abort(403);
+        }
+
         return view('projects.show', compact('project'));
     }
 }
