@@ -24,7 +24,7 @@
                                     <fieldset>
                                         <legend class="text-lg font-medium text-gray-900">Tasks</legend>
                                         <div class="mt-4 border-t border-b border-gray-200 divide-y divide-gray-200">
-                                            @foreach ($project->tasks as $task)
+                                            @forelse ($project->tasks as $task)
                                                 <div class="relative flex items-start py-4">
                                                     <div class="min-w-0 flex-1 text-sm">
                                                         <label for="person-1"
@@ -37,7 +37,27 @@
                                                             class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                                     </div>
                                                 </div>
-                                            @endforeach
+                                            @empty
+                                            @endforelse
+
+                                            <div class="relative flex items-start py-4">
+                                                <div class="min-w-0 flex-1 text-sm">
+                                                    <form action="{{ $project->path() . '/tasks' }}" method="POST">
+                                                        @csrf
+
+                                                        <div class="space-y-8 divide-y divide-gray-200">
+                                                            <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+                                                                <div class="sm:col-span-6">
+                                                                    <div class="mt-1">
+                                                                        <input type="text" name="body" placeholder="Begin adding tasks..."
+                                                                            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
                                         </div>
                                     </fieldset>
                                 </div>

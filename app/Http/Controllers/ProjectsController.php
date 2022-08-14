@@ -23,9 +23,9 @@ class ProjectsController extends BaseController
         /** @var \App\Models\User */
         $user = auth()->user();
 
-        $user->projects()->create($attributes);
+        $project = $user->projects()->create($attributes);
 
-        return redirect('projects');
+        return redirect($project->path());
     }
 
     public function show(Project $project)
