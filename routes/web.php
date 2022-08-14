@@ -38,6 +38,6 @@ Route::middleware(['auth'])->group(function () {
         });
 });
 
-Route::get('app', fn() => view('app'));
+Route::get('app', fn () => view('app'));
 
 require __DIR__.'/auth.php';
