@@ -24,41 +24,20 @@
                                     <fieldset>
                                         <legend class="text-lg font-medium text-gray-900">Tasks</legend>
                                         <div class="mt-4 border-t border-b border-gray-200 divide-y divide-gray-200">
-                                            <div class="relative flex items-start py-4">
-                                                <div class="min-w-0 flex-1 text-sm">
-                                                    <label for="person-1" class="font-medium text-gray-700 select-none">
-                                                        Task 1
-                                                    </label>
+                                            @foreach ($project->tasks as $task)
+                                                <div class="relative flex items-start py-4">
+                                                    <div class="min-w-0 flex-1 text-sm">
+                                                        <label for="person-1"
+                                                            class="font-medium text-gray-700 select-none">
+                                                            {{ $task->body }}
+                                                        </label>
+                                                    </div>
+                                                    <div class="ml-3 flex items-center h-5">
+                                                        <input id="person-1" name="person-1" type="checkbox"
+                                                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                                    </div>
                                                 </div>
-                                                <div class="ml-3 flex items-center h-5">
-                                                    <input id="person-1" name="person-1" type="checkbox"
-                                                        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                </div>
-                                            </div>
-
-                                            <div class="relative flex items-start py-4">
-                                                <div class="min-w-0 flex-1 text-sm">
-                                                    <label for="person-2" class="font-medium text-gray-700 select-none">
-                                                        Task 2
-                                                    </label>
-                                                </div>
-                                                <div class="ml-3 flex items-center h-5">
-                                                    <input id="person-2" name="person-2" type="checkbox"
-                                                        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                </div>
-                                            </div>
-
-                                            <div class="relative flex items-start py-4">
-                                                <div class="min-w-0 flex-1 text-sm">
-                                                    <label for="person-3" class="font-medium text-gray-700 select-none">
-                                                        Task 3
-                                                    </label>
-                                                </div>
-                                                <div class="ml-3 flex items-center h-5">
-                                                    <input id="person-3" name="person-3" type="checkbox"
-                                                        class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                </div>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </fieldset>
                                 </div>

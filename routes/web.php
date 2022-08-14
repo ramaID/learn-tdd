@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\ProjectsController;
+use App\Http\Controllers\ProjectTasksController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +30,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('projects/create', 'create');
             Route::post('projects', 'store');
             Route::get('projects/{project}', 'show');
+        });
+
+    Route::controller(ProjectTasksController::class)
+        ->group(function () {
+            Route::post('/projects/{project}/tasks', 'store');
         });
 });
 
