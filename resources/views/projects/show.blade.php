@@ -25,21 +25,21 @@
                                         <legend class="text-lg font-medium text-gray-900">Tasks</legend>
                                         <div class="mt-4 border-t border-b border-gray-200 divide-y divide-gray-200">
                                             @forelse ($project->tasks as $task)
-                                                <form action="{{ $task->path() }}"
-                                                    method="POST">
+                                                <form action="{{ $task->path() }}" method="POST">
                                                     @method('PATCH')
                                                     @csrf
                                                     <div class="relative flex items-start py-4">
                                                         <div class="min-w-0 flex-1 text-sm">
                                                             <input type="text" name="body"
                                                                 value="{{ $task->body }}"
+                                                                onchange="this.form.submit()"
                                                                 class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md">
                                                         </div>
                                                         <div class="ml-3 flex items-center h-5">
                                                             <input name="completed" type="checkbox"
                                                                 {{ $task->completed ? 'checked' : '' }}
-                                                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
-                                                                onchange="this.form.submit()">
+                                                                onchange="this.form.submit()"
+                                                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                                         </div>
                                                     </div>
                                                 </form>

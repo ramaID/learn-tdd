@@ -8,7 +8,10 @@ class ProjectsController extends BaseController
 {
     public function index()
     {
-        $projects = Project::all();
+        /** @var \App\Models\User */
+        $user = auth()->user();
+
+        $projects = $user->projects;
 
         return view('projects.index', compact('projects'));
     }
