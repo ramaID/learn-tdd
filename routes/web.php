@@ -25,11 +25,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::controller(ProjectsController::class)
         ->group(function () {
-            Route::get('projects', 'index');
+            Route::get('projects', 'index')->name('projects.index');
             Route::get('projects/create', 'create');
             Route::post('projects', 'store');
             Route::get('projects/{project}', 'show');
         });
 });
+
+Route::get('app', fn() => view('app'));
 
 require __DIR__.'/auth.php';
