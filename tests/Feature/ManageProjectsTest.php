@@ -24,17 +24,22 @@ class ManageProjectsTest extends TestCase
         $attributes = [
             'title' => $this->faker()->sentence(),
             'description' => $this->faker()->paragraph(),
+            'notes' => 'General notes here',
         ];
 
         $response = $this->post('/projects', $attributes);
 
+        /** @var Project */
         $project = Project::where($attributes)->first();
 
         $response->assertRedirect($project->path());
 
         $this->assertDatabaseHas('projects', $attributes);
 
-        $this->get('/projects')->assertSee($attributes['title']);
+        $this->get($project->path())
+            ->assertSee($attributes['title'])
+            ->assertSee($attributes['description'])
+            ->assertSee($attributes['notes']);
     }
 
     /** @test */
@@ -67,6 +72,7 @@ class ManageProjectsTest extends TestCase
 
         $this->withoutExceptionHandling();
 
+        /** @var Project */
         $project = Project::factory()->create(['owner_id' => auth()->id()]);
 
         $this->get($project->path())
@@ -88,11 +94,38 @@ class ManageProjectsTest extends TestCase
     /** @test */
     public function guest_cannot_manage_projects()
     {
+        /** @var Project */
         $project = Project::factory()->create();
 
         $this->post('projects', $project->toArray())->assertRedirect('/login');
         $this->get($project->path())->assertRedirect('login');
         $this->get('/projects')->assertRedirect('login');
         $this->get('/projects/create')->assertRedirect('login');
+    }
+
+    /** @test */
+    public function a_user_can_update_a_project()
+    {
+        $this->signIn();
+
+        $this->withoutExceptionHandling();
+
+        /** @var Project */
+        $project = Project::factory()->create(['owner_id' => auth()->id()]);
+
+        $this->patch($project->path(), ['notes' => 'Changed'])->assertRedirect($project->path());
+
+        $this->assertDatabaseHas('projects', ['notes' => 'Changed']);
+    }
+
+    /** @test */
+    public function an_authenticated_user_cannot_update_the_projects_of_others()
+    {
+        $this->signIn();
+
+        $project = Project::factory()->create();
+
+        $this->patch($project->path(), [])
+            ->assertStatus(403);
     }
 }

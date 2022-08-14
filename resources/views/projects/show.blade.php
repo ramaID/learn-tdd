@@ -86,17 +86,20 @@
                         <div class="bg-gray-50 px-4 py-6 sm:px-6">
                             <div class="flex space-x-3">
                                 <div class="min-w-0 flex-1">
-                                    <form action="#">
+                                    <form action="{{ $project->path() }}" method="POST">
+                                        @csrf
+                                        @method('PATCH')
+
                                         <div>
-                                            <label for="comment" class="sr-only">About</label>
-                                            <textarea id="comment" name="comment" rows="3"
-                                                class="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border border-gray-300 rounded-md"
-                                                placeholder="Add a note"></textarea>
+                                            <label for="notes" class="sr-only">General Notes</label>
+                                            <textarea id="notes" name="notes" rows="3" placeholder="Add a notes"
+                                                class="shadow-sm block w-full focus:ring-blue-500 focus:border-blue-500 sm:text-sm border border-gray-300 rounded-md">{{ $project->notes }}</textarea>
                                         </div>
-                                        {{-- <div class="mt-3 flex items-center justify-between">
+
+                                        <div class="mt-3 flex items-center justify-between">
                                             <button type="submit"
                                                 class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Comment</button>
-                                        </div> --}}
+                                        </div>
                                     </form>
                                 </div>
                             </div>

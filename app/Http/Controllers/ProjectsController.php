@@ -21,6 +21,7 @@ class ProjectsController extends BaseController
         $attributes = request()->validate([
             'title' => 'required',
             'description' => 'required',
+            'notes' => 'min:3',
         ]);
 
         /** @var \App\Models\User */
@@ -33,12 +34,7 @@ class ProjectsController extends BaseController
 
     public function show(Project $project)
     {
-        /** @var \App\Models\User */
-        $user = auth()->user();
-
-        if ($user->isNot($project->owner)) {
-            abort(403);
-        }
+        $this->authorize('update', $project);
 
         return view('projects.show', compact('project'));
     }
@@ -46,5 +42,14 @@ class ProjectsController extends BaseController
     public function create()
     {
         return view('projects.create');
+    }
+
+    public function update(Project $project)
+    {
+        $this->authorize('update', $project);
+
+        $project->update(request(['notes']));
+
+        return redirect($project->path());
     }
 }
