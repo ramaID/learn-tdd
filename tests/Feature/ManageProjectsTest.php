@@ -113,7 +113,7 @@ class ManageProjectsTest extends TestCase
             ->patch($project->path(), $attributes)
             ->assertRedirect($project->path());
 
-        $this->get($project->path() .'/edit')->assertOk();
+        $this->get($project->path().'/edit')->assertOk();
 
         $this->assertDatabaseHas('projects', $attributes);
     }
