@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('projects/create', 'create');
             Route::post('projects', 'store');
             Route::get('projects/{project}', 'show');
+            Route::get('projects/{project}/edit', 'edit');
             Route::patch('projects/{project}', 'update');
         });
 

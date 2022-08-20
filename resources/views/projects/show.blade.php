@@ -2,6 +2,11 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Projects > Detail') }}
+
+            <a href="{{ $project->path() . '/edit' }}"
+                class="justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                Edit Project
+            </a>
         </h2>
     </x-slot>
 
