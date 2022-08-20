@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 
 class ProjectsController extends BaseController
@@ -36,13 +37,9 @@ class ProjectsController extends BaseController
         return view('projects.create');
     }
 
-    public function update(Project $project)
+    public function update(UpdateProjectRequest $form)
     {
-        $this->authorize('update', $project);
-
-        $project->update($this->validating());
-
-        return redirect($project->path());
+        return redirect($form->save()->path());
     }
 
     public function edit(Project $project)
@@ -53,9 +50,9 @@ class ProjectsController extends BaseController
     protected function validating()
     {
         return request()->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'notes' => 'min:3',
+            'title' => 'sometimes|required',
+            'description' => 'sometimes|required',
+            'notes' => 'nullable',
         ]);
     }
 }
