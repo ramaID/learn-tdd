@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
@@ -36,8 +37,15 @@ class Project extends Model
         return $this->hasMany(Activity::class);
     }
 
-    public function recordActivity(string $type)
+    /**
+     * Record activity for a project
+     *
+     * @param string $description
+     * @return void
+     * @throws MassAssignmentException
+     */
+    public function recordActivity(string $description)
     {
-        Activity::create(['project_id' => $this->id, 'description' => $type]);
+        $this->activity()->create(compact('description'));
     }
 }

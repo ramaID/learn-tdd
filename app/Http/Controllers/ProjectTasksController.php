@@ -11,9 +11,7 @@ class ProjectTasksController extends BaseController
     {
         $this->authorize('update', $project);
 
-        request()->validate(['body' => 'required']);
-
-        $project->addTask(request('body'));
+        $project->addTask(request()->validate(['body' => 'required'])['body']);
 
         return redirect($project->path());
     }
@@ -22,13 +20,10 @@ class ProjectTasksController extends BaseController
     {
         $this->authorize('update', $project);
 
-        request()->validate(['body' => 'required']);
+        $task->update(request()->validate(['body' => 'required']));
 
-        $task->update(['body' => request('body')]);
-
-        if (request()->has('completed')) {
-            $task->complete();
-        }
+        $method = request('completed') ? 'complete' : 'incomplete';
+        $task->$method();
 
         return redirect($project->path());
     }
