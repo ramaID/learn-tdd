@@ -40,8 +40,9 @@ class Project extends Model
     /**
      * Record activity for a project
      *
-     * @param string $description
+     * @param  string  $description
      * @return void
+     *
      * @throws MassAssignmentException
      */
     public function recordActivity(string $description)
