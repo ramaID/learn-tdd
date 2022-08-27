@@ -70,9 +70,9 @@ class TriggerActivityTest extends TestCase
         $this->assertCount(3, $project->activity);
 
         $this->patch($project->tasks[0]->path(), [
-                'body' => 'foobar',
-                'completed' => false,
-            ]);
+            'body' => 'foobar',
+            'completed' => false,
+        ]);
 
         $project->refresh();
 
